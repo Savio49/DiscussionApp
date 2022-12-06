@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Topic(models.Model):
     name = models.CharField(max_length=200)
 
-    def __string__(self):
+    def __str__(self):
         return self.name
 
 
