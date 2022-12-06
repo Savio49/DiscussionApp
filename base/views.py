@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Room
 from .forms import RoomForm
@@ -25,8 +25,15 @@ def room(request, pk):
 
 
 def createRoom(request):
-    form = RoomForm
-    context = {'form':form}
+    form = RoomForm()
+    if request.method == 'POST':
+        # print(request.POST)
+        form = RoomForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+
+    context = {'form': form}
     return render(request, 'base/room_form.html', context)
 
 # Class based views are faster and easier to work with instead of function based views. But they get complicated for larger projects. We stick to function based views for understanding MODEL-FORMS
