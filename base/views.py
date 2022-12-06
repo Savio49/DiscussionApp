@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from .models import Room
+from .forms import RoomForm
 
 # queryset = ModelName.objects.all() # objects is the model manager which gives access to methods like all(), get(), filter(), exclude()
 
@@ -24,5 +25,8 @@ def room(request, pk):
 
 
 def createRoom(request):
-    context = {}
+    form = RoomForm
+    context = {'form':form}
     return render(request, 'base/room_form.html', context)
+
+# Class based views are faster and easier to work with instead of function based views. But they get complicated for larger projects. We stick to function based views for understanding MODEL-FORMS
