@@ -21,5 +21,3 @@ def room(request, pk):
     room = Room.objects.get(id=pk)  # query data using id
     context = {'room': room}
     return render(request, 'base/room.html', context)
-
-# DYNAMIC URL ROUTING

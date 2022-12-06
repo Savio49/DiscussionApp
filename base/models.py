@@ -24,6 +24,16 @@ class Room(models.Model):
     def __str__(self):
         return self.name
 
+
+class Message(models.Model):
+    # user
+    # one to many relationship: a user can have many messages. Foreign key in databases. CASCADE deletes all the messages in the room if the room is deleted. SET_NULL sets the message values to null on room deletion
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    body = models.TextField()
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+
 # models are classes which make up the database
 # migration means converting a model into a database
 # prepare migrations using: # python manage.py makemigrations
