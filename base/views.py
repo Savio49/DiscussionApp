@@ -5,22 +5,23 @@ from .forms import RoomForm
 
 # queryset = ModelName.objects.all() # objects is the model manager which gives access to methods like all(), get(), filter(), exclude()
 
-# rooms = [
-#     {'id': 1, 'name': 'Room 1'},
-#     {'id': 2, 'name': 'Room 2'},
-#     {'id': 3, 'name': 'Room 3'},
-# ]
-
 
 def home(request):
-    rooms = Room.objects.all()  # query to get all rooms. objects is the model manager
+    # .filter() works like .all(), topic__name comes from attributes of Room model. That works but except for 'All' filter
+    # q = request.GET.get('q')
+    # rooms = Room.objects.filter(topic__name=q) # Doesn't work for 'All'
+
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    # filter works if the query contains atleast some part of the string. i makes the case-insensitive. other parameters which may be used: startswith, endswith etc
+    rooms = Room.objects.filter(topic__name__icontains=q)
+
     topics = Topic.objects.all()
-    context = {'rooms': rooms, 'topics':topics}
+    context = {'rooms': rooms, 'topics': topics}
     return render(request, 'base/home.html', context)
 
 
 def room(request, pk):
-    room = Room.objects.get(id=pk)  # query data using id
+    room = Room.objects.get(id=pk)
     context = {'room': room}
     return render(request, 'base/room.html', context)
 
