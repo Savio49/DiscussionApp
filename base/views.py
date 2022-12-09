@@ -12,6 +12,7 @@ from django.db.models import Q
 
 
 def loginPage(request):
+    page = 'login'  # passing in the page name for access in login_register.html
 
     if request.user.is_authenticated:
         return redirect('home')
@@ -34,13 +35,20 @@ def loginPage(request):
             return redirect('home')
         else:
             messages.error(request, 'Username and password does not match')
-    context = {}
+    context = {'page': page}
     return render(request, 'base/login_register.html', context)
 
 
 def logoutUser(request):
     logout(request)  # deletes the session token
     return redirect('home')
+
+
+def registerPage(request):
+    page = 'register'
+
+    context = {'page': page}
+    return render(request, 'base/login_register.html', context)
 
 
 def home(request):
