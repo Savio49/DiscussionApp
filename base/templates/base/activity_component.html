@@ -2,7 +2,7 @@
 <hr>
 {% for message in room_messages %}
 <div>
-    <small>@{{message.user}}  {{message.created | timesince }} </small>
+    <small><a href="{% url 'user-profile' message.user.id">@{{message.user}}</a>  {{message.created | timesince }} </small>
     <small>Replied to {{message.room}}</small>
     <p>{{message}}</p> <!--message instead of message.body bcz the model class defines the __str__method to contain first 50 characters of message-->
     {% if request.user == message.user %}
