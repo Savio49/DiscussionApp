@@ -88,8 +88,10 @@ def room(request, pk):
             room=room,
             body=request.POST.get('body')
         )
+        room.participants.add(request.user)
         return redirect('room', pk=room.id)
-    context = {'room': room, 'room_messages': room_messages,'participants':participants}
+    context = {'room': room, 'room_messages': room_messages,
+               'participants': participants}
     return render(request, 'base/room.html', context)
 
 
@@ -136,8 +138,15 @@ def deleteRoom(request, pk):
         return redirect('home')
     return render(request, 'base/delete.html', {'obj', room})
 
-    #     form = RoomForm(request.POST, instance=room)
-    # form = RoomForm(instance=room)
 
+@login_required(login_url='login')
+def deleteMessage(request, pk):
+    message = Message.objects.get(id=pk)
 
-# Class based views are faster and easier to work with instead of function based views. But they get complicated for larger projects. We stick to function based views for understanding MODEL-FORMS
+    if request.user != message.user:
+        return HttpResponse('Invalid user')
+
+    if request.method == 'POST':
+        message.delete()
+        return redirect('home')
+    return render(request, 'base/delete.html', {'obj': message})
