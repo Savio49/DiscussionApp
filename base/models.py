@@ -38,6 +38,8 @@ class Message(models.Model):
     def __str__(self):
         return self.body[0:50]
 
+    class Meta:
+        ordering = ['-updated', '-created']
 
 # create super-user to access the django admin page # python manage.py createsuperuser
 # user: savio49

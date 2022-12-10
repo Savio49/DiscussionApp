@@ -71,7 +71,9 @@ def home(request):
 
     room_count = rooms.count()
     topics = Topic.objects.all()
-    context = {'rooms': rooms, 'topics': topics, 'room_count': room_count}
+    room_messages = Message.objects.all()
+    context = {'rooms': rooms, 'topics': topics,
+               'room_count': room_count, 'room_messages': room_messages}
     return render(request, 'base/home.html', context)
 
 
@@ -79,7 +81,7 @@ def room(request, pk):
     room = Room.objects.get(id=pk)
     # querying child objects (Message objects) of a specific object (room)
     # xxxxx_set.all() for many-to-one relationship
-    room_messages = room.message_set.all().order_by('-created')
+    room_messages = room.message_set.all()
     # xxxxx.all() for many-to-many relationship
     participants = room.participants.all()
     if request.method == 'POST':
