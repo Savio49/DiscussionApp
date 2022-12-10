@@ -78,7 +78,10 @@ def home(request):
 def room(request, pk):
     room = Room.objects.get(id=pk)
     # querying child objects (Message objects) of a specific object (room)
+    # xxxxx_set.all() for many-to-one relationship
     room_messages = room.message_set.all().order_by('-created')
+    # xxxxx.all() for many-to-many relationship
+    participants = room.participants.all()
     if request.method == 'POST':
         message = Message.objects.create(
             user=request.user,
@@ -86,7 +89,7 @@ def room(request, pk):
             body=request.POST.get('body')
         )
         return redirect('room', pk=room.id)
-    context = {'room': room, 'room_messages': room_messages}
+    context = {'room': room, 'room_messages': room_messages,'participants':participants}
     return render(request, 'base/room.html', context)
 
 
