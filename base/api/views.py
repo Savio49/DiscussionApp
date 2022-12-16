@@ -19,10 +19,16 @@ def getRoutes(request):
 
 @api_view(['GET'])
 def getRooms(request):
-    page = 'rooms'
-
     rooms = Room.objects.all()
-    # many=True allows multiple objects for serialization
     serializer = RoomSerializer(rooms, many=True)
-
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getRoom(request, pk):
+    room = Room.objects.get(id=pk)
+    serializer = RoomSerializer(room, many=False)
+    return Response(serializer.data)
+
+# Nesting serializers
+# Authentication with rest framework: using JSON web tokens
