@@ -1,0 +1,11 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<form action="" method="POST">
+    {% csrf_token %} <!--required if using Django templating engine This is for anti-forgery-->
+    {{form.as_p}}
+    <input type="submit" value="Submit" />
+</form>
+
+{% endblock content %}
