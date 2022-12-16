@@ -1,0 +1,6 @@
+{
+    "djlint.enableLinting": false,
+    "djlint.guessProfile": false,
+    "djlint.useEditorIndentation": false,
+    "djlint.useVenv": false
+}
