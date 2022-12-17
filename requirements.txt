@@ -9,7 +9,6 @@ Pillow==9.2.0
 platformdirs==2.5.4
 ply==3.11
 regex==2022.10.31
-requests @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_516b78ce-034d-4395-b9b5-1d78c2847384qtnol99l/croots/recipe/requests_1657734628886/work
 requests-toolbelt==0.10.1
 sqlparse==0.4.3
 virtualenv==20.17.0
