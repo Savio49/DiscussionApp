@@ -4,8 +4,9 @@ from django.contrib import admin
 # To view models on the admin page, register your models
 
 # User model already registered by default
-from .models import Room, Topic, Message
+from .models import Room, Topic, Message, User
 
+admin.site.register(User)
 admin.site.register(Room)
 admin.site.register(Topic)
 admin.site.register(Message)

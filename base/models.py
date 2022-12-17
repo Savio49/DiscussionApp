@@ -1,6 +1,13 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
+# Django's User model has limited functionality. Can't add in bio, profile picture, etc.
+# Can add a custom user's model using Profile model with one-to-one relation with model attributes
+# Another way: Override the User model to create a custom model
+
+class User(AbstractUser):
+    pass
 
 class Topic(models.Model):
     name = models.CharField(max_length=200)
